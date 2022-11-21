@@ -1,0 +1,19 @@
+export DIST_NAME=PrometheusOS
+export DIST_VERSION=0.1.0
+
+# rpi-imager json generator settings
+export RPI_IMAGER_NAME="${DIST_NAME}"
+export RPI_IMAGER_DESCRIPTION="A raspberrypi distro for the Prometheus MSLA printer"
+export RPI_IMAGER_WEBSITE="https://github.com/guysoft/CustomPiOS"
+export RPI_IMAGER_ICON="https://raw.githubusercontent.com/guysoft/CustomPiOS/devel/media/rpi-imager-CustomPiOS.png"
+
+# base modules settings
+export BASE_ADD_USER="yes" # enable base pi user
+export BASE_IMAGE_ENLARGEROOT=3000
+export BASE_IMAGE_RESIZEROOT=200
+export BASE_RELEASE_IMAGE_NAME="PrometheusOS"
+
+# Prometheus Settings
+export KLIPPER_REPO_SHIP="https://github.com/TheContrappostoShop/klipper.git"
+
+export MODULES="base(pkupgrade,network,klipper,nanodlp,openocd)"

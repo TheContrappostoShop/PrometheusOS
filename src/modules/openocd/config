@@ -1,0 +1,13 @@
+#!/bin/bash
+[ -n "$OPENOCD_DEPS" ] || OPENOCD_DEPS="automake autoconf build-essential \
+texinfo libtool libftdi-dev libusb-1.0-0-dev gdb-multiarch git"
+
+[ -n "$OPENOCD_ADD_SERVICE" ] || OPENOCD_ADD_SERVICE="no"
+
+[ -n "$OPENOCD_REPO_SHIP" ] || OPENOCD_REPO_SHIP=https://github.com/raspberrypi/openocd.git
+[ -n "$OPENOCD_REPO_BRANCH" ] || OPENOCD_REPO_BRANCH=rp2040
+[ -n "$OPENOCD_REPO_DEPTH" ] || OPENOCD_REPO_DEPTH=1
+
+[ -n "$PRINTER_DIR" ] || PRINTER_DIR=/home/${BASE_USER}/printer_data
+
+[ -n "$OPENOCD_SCRIPT_DIR" ] || OPENOCD_SCRIPT_DIR=${PRINTER_DIR}/scripts

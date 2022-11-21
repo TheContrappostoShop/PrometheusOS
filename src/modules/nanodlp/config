@@ -1,0 +1,6 @@
+[-n "$NANODLP_VERSION" ] || NANODLP_VERSION="arm.rpi"
+[-n "$NANODLP_BRANCH" ] || NANODLP_BRANCH="stable"
+
+[-n "$NANODLP_DISTRO" ] || NANODLP_DISTRO="generic"
+
+[-n "$NANODLP_URL" ] || NANODLP_URL="https://www.nanodlp.com/download/nanodlp.linux.${NANODLP_VERSION}.${NANODLP_BRANCH}.tar.gz"

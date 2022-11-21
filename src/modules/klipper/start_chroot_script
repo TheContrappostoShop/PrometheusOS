@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# klipper install script
+# Installs Klipper for use on the Prometheus MSLA, including config
+# Written by Ada Phillips <ragwafire99@gmail.com
+# GPL V3
+########
+
+
+# Source error handling, leave this in place
+set -x
+set -e
+
+source /common.sh
+
+install_cleanup_trap
+
+check_install_pkgs ${KLIPPER_DEPS}
+
+usermod -a -G "${KLIPPER_USER_GROUPS}" "${BASE_USER}"
+
+pushd "/etc/systemd/system"
+# Generate Klipper service file
+echo """
+[Unit]
+Description=Klipper 3D Printer Firmware SV1
+Documentation=https://www.klipper3d.org/
+After=network-online.target
+Wants=udev.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=${BASE_USER}
+RemainAfterExit=yes
+WorkingDirectory=/home/${BASE_USER}/klipper
+ExecStart=/home/${BASE_USER}/klippy-env/bin/python /home/${BASE_USER}/klipper/klippy/klippy.py ${KLIPPER_CONFIG} -I ${KLIPPER_SERIAL} -l ${KLIPPER_LOG} -a ${KLIPPER_SOCKET}
+Restart=always
+RestartSec=10
+""" > klipper.service
+
+popd
+
+pushd "/home/${BASE_USER}"
+
+gitclone KLIPPER_REPO klipper
+
+for dir in ${KLIPPER_USER_DIRS}; do
+    sudo -u "${BASE_USER}" mkdir -p "${dir}"
+done
+
+sudo -u "${BASE_USER}" bash -c "echo '${KLIPPER_ENV_STRING}' > printer_data/systemd/klipper.env"
+
+sudo -u "${BASE_USER}" virtualenv -p python3 "${KLIPPER_PYTHON_DIR}"
+sudo -u "${BASE_USER}" "${KLIPPER_PYTHON_DIR}"/bin/pip install -r "${KLIPPER_SRC_DIR}"/"${KLIPPER_PYENV_REQ}"
+
+popd
+
+unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
+
+systemctl_if_exists enable klipper.service
