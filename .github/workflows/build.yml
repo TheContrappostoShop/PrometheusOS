@@ -48,7 +48,7 @@ jobs:
         cp repository/src/workspace/*.img $IMAGE.img
         echo "name=image::$IMAGE" >> $GITHUB_OUTPUT
     # artifact upload will take care of zipping for us
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: ${{ steps.copy.outputs.image }}
         path: ${{ steps.copy.outputs.image }}.img
