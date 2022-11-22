@@ -14,13 +14,13 @@ jobs:
         sudo apt update
         sudo apt install coreutils p7zip-full qemu-user-static
     - name: Checkout CustomPiOS
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: 'guysoft/CustomPiOS'
         path: CustomPiOS
 
     - name: Checkout Project Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: repository
         submodules: true
@@ -46,7 +46,7 @@ jobs:
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=$NOW-prometheusos-$DIST_VERSION
         cp repository/src/workspace/*.img $IMAGE.img
-        echo "::set-output name=image::$IMAGE"
+        echo "name=image::$IMAGE" >> $GITHUB_OUTPUT
     # artifact upload will take care of zipping for us
     - uses: actions/upload-artifact@v1
       with:
