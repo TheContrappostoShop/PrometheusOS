@@ -65,7 +65,7 @@ else
 fi
 
 # unpack beta DSI flutter app
-sudo -u "${BASE_USER}" wget ${NANODLP_DSI_URL} -O - | tar -C nanodlp-dsi/ -xz
+sudo -u "${BASE_USER}" wget ${NANODLP_DSI_URL} -O - | tar -C nanodlp-hmi/ -xz
 
 sudo -u "${BASE_USER}" echo -n "${NANODLP_DISTRO}">nanodlp/build
 [[ -e nanodlp/distrop/"${NANODLP_DISTRO}"/req/* ]] && sudo -u "${BASE_USER}" cp -rf nanodlp/distro/"${NANODLP_DISTRO}"/req/* nanodlp/
