@@ -14,6 +14,8 @@ source /common.sh
 
 install_cleanup_trap
 
+check_install_pkgs ${NANODLP_DEPS}
+
 pushd "/etc/systemd/system"
 # Generate NanoDLP service file
 echo """
@@ -33,10 +35,26 @@ RestartSec=10
 WantedBy=multi-user.target
 """ > nanodlp.service
 
+echo """
+[Unit]
+Description=NanoDLP DSI service
+After=nanodlp.service
+
+[Service]
+WorkingDirectory=/home/${BASE_USER}/nanodlp-hmi/
+ExecStart=/home/${BASE_USER}/nanodlp-hmi/dsi --release app
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+""" > nanodlp-hmi.service
+
 popd
 
 pushd "/home/${BASE_USER}"
 sudo -u "${BASE_USER}" mkdir -p nanodlp
+sudo -u "${BASE_USER}" mkdir -p nanodlp-hmi
 
 # Pi package has nested folder and renamed binary, for whatever reason
 if [ $NANODLP_VERSION == "arm.rpi" ] ; then
@@ -45,6 +63,9 @@ if [ $NANODLP_VERSION == "arm.rpi" ] ; then
 else
     sudo -u "${BASE_USER}" wget ${NANODLP_URL} -O - | tar -C nanodlp/ -xz
 fi
+
+# unpack beta DSI flutter app
+sudo -u "${BASE_USER}" wget ${NANODLP_DSI_URL} -O - | tar -C nanodlp-dsi/ -xz
 
 sudo -u "${BASE_USER}" echo -n "${NANODLP_DISTRO}">nanodlp/build
 [[ -e nanodlp/distrop/"${NANODLP_DISTRO}"/req/* ]] && sudo -u "${BASE_USER}" cp -rf nanodlp/distro/"${NANODLP_DISTRO}"/req/* nanodlp/
@@ -76,6 +97,7 @@ popd
 #set_config_var 'hdmi_drive' '2'
 
 unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
+unpack /filesystem/usr/lib /usr/lib root
 
 systemctl_if_exists enable nanodlp.service
-
+systemctl_if_exists enable nanodlp-hmi.service
