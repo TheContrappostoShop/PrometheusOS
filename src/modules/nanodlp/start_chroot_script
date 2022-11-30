@@ -73,28 +73,21 @@ sudo -u "${BASE_USER}" echo -n "${NANODLP_DISTRO}">nanodlp/build
 ldconfig
 popd
 
-# Set config.txt values for optimal nanodlp
-#set_config_var 'disable_camera_led' '1'
-#set_config_var 'gpu_mem' '128'
-#set_config_var 'dtoverlay' 'pi3-disable-bt'
-#set_config_var 'disable_splash' '1'
-#set_config_var 'boot_delay' '0'
-#set_config_var 'dtoverlay' 'vc4-fkms-v3d'
-#set_config_var 'display_auto_detect' '1'
-#set_config_var 'max_framebuffers' '2'
-#set_config_var 'disable_overscan' '1'
-#set_config_var 'arm_boost' '1'
-#set_config_var 'framebuffer_width' '2160'
-#set_config_var 'framebuffer_height' '3600'
-#set_config_var 'hdmi_force_hotplug' '1'
-#set_config_var 'dtparam' 'i2c_arm=on'
-#set_config_var 'enable_uart' '1'
-#set_config_var 'dtoverlay' 'waveshare35a'
-#set_config_var 'hdmi_group' '2'
-#set_config_var 'hdmi_mode' '1'
-#set_config_var 'hdmi_mode' '87'
-#set_config_var 'hdmi_cvt' '2160 3600 24'
-#set_config_var 'hdmi_drive' '2'
+echo """
+framebuffer_width=2160
+framebuffer_height=3600
+hdmi_force_hotplug=1
+dtparam=i2c_arm=on
+enable_uart=1
+dtoverlay=waveshare35a
+hdmi_group=2
+hdmi_mode=1
+hdmi_mode=87
+hdmi_cvt=2160 3600 24
+hdmi_drive=2
+""" >> /boot/config.txt
+
+sudo sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/config.txt
 
 unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
 unpack /filesystem/usr/lib /usr/lib root
