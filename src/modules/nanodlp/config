@@ -1,5 +1,5 @@
 [-n "$NANODLP_VERSION" ] || NANODLP_VERSION="arm.rpi"
-[-n "$NANODLP_BRANCH" ] || NANODLP_BRANCH="stable"
+[-n "$NANODLP_BRANCH" ] || NANODLP_BRANCH="beta"
 
 [-n "$NANODLP_DISTRO" ] || NANODLP_DISTRO="generic"
 
