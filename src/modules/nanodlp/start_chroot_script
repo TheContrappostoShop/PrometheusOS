@@ -87,7 +87,7 @@ hdmi_cvt=2160 3600 24
 hdmi_drive=2
 """ >> /boot/config.txt
 
-sudo sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/config.txt
+sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/config.txt
 
 unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
 unpack /filesystem/usr/lib /usr/lib root
