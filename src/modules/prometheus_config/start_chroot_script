@@ -23,7 +23,7 @@ for dir in ${PROMETHEUS_CONFIG_DIRS}; do
     sudo -u "${BASE_USER}" mkdir -p "${dir}"
 done
 
-sudo -u "${BASE_USER}" prometheus_config/klipper/.config klipper/
-sudo -u "${BASE_USER}" prometheus_config/klipper/config/* printer_data/config/
-sudo -u "${BASE_USER}" prometheus_config/nanodlp/* nanodlp/db/
+sudo -u "${BASE_USER}" cp prometheus_config/klipper/.config klipper/
+sudo -u "${BASE_USER}" cp prometheus_config/klipper/config/* printer_data/config/
+sudo -u "${BASE_USER}" cp prometheus_config/nanodlp/* nanodlp/db/
 
