@@ -1,0 +1,5 @@
+#!/bin/bash
+[ -n "$PROMETHEUS_CONFIG_REPO_SHIP" ] || PROMETHEUS_CONFIG_REPO_SHIP=https://github.com/TheContrappostoShop/Prometheus_Config.git
+[ -n "$PROMETHEUS_CONFIG_REPO_BRANCH" ] || PROMETHEUS_CONFIG_REPO_BRANCH=config_source
+
+[ -n "$PROMETHEUS_CONFIG_DIRS" ] || PROMETHEUS_CONFIG_DIRS="/home/${BASE_USER}/klipper /home/${BASE_USER}/printer_data/config /home/${BASE_USER}/nanodlp/db"
