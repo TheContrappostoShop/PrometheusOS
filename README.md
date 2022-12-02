@@ -1,5 +1,4 @@
-![Discord Link](https://discordapp.com/api/guilds/881628699500359731/widget.png?style=shield)
-# PrometheusOS
+# PrometheusOS [![Discord Link](https://discordapp.com/api/guilds/881628699500359731/widget.png?style=shield)](https://discord.gg/GFUn9gwRsj)
 
 Custom Raspberry Pi OS distribution for the open source Prometheus MSLA printer.
 
