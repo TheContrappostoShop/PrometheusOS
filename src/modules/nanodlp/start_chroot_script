@@ -75,7 +75,5 @@ popd
 #set_config_var 'hdmi_cvt' '2160 3600 24'
 #set_config_var 'hdmi_drive' '2'
 
-unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
-
 systemctl_if_exists enable nanodlp.service
 

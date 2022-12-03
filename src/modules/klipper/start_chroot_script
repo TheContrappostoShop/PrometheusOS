@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # klipper install script
-# Installs Klipper for use on the Prometheus MSLA, including config
+# Installs Klipper for use on the Prometheus MSLA
 # Written by Ada Phillips <ragwafire99@gmail.com
 # GPL V3
 ########
