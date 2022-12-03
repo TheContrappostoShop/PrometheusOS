@@ -58,8 +58,7 @@ jobs:
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_release'
       with:
         artifacts: ${{ steps.compress.outputs.image }}.tar.gz
-        draft: true
-        tag: ${{ steps.compress.outputs.dist_version }}
+        tag: v${{ steps.compress.outputs.dist_version }}
         skipIfReleaseExists: true
         commit: ${{github.sha}}
 
