@@ -90,11 +90,8 @@ disable_splash=1
 
 sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/config.txt
 
-<<<<<<< HEAD
 unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
 unpack /filesystem/usr/lib /usr/lib root
 
-=======
->>>>>>> origin/main
 systemctl_if_exists enable nanodlp.service
 systemctl_if_exists enable nanodlp-hmi.service
