@@ -35,16 +35,18 @@ jobs:
         ../../CustomPiOS/src/update-custompios-paths
 
     - name: Build Image
+      id: build
       run: |
         sudo modprobe loop
         cd repository/src
         sudo bash -x ./build_dist
+        echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
     - name: Compress output
       id: compress
       run: |
         source repository/src/config
         NOW=$(date +"%Y-%m-%d-%H%M")
-        IMAGE=$NOW-prometheusos-$DIST_VERSION
+        IMAGE=$NOW-prometheusos-${{ steps.build.outputs.dist_version }}
         tar -czvf $IMAGE.tar.gz repository/src/workspace/*.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
     - uses: actions/upload-artifact@v3
@@ -57,7 +59,7 @@ jobs:
       with:
         artifacts: ${{ steps.compress.outputs.image }}.tar.gz
         draft: true
-        tag: ${{DIST_VERSION}}
+        tag: ${{ steps.build.outputs.dist_version }}
         skipIfReleaseExists: true
         commit: ${{github.sha}}
 
