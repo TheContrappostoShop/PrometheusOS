@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Prometheus Config install script
+# Installs the configuration files for the Prometheus MSLA Printer
+# Written by Ada Phillips <ragwafire99@gmail.com
+# GPL V3
+########
+
+
+# Source error handling, leave this in place
+set -x
+set -e
+
+source /common.sh
+
+install_cleanup_trap
+
+
+pushd "/home/${BASE_USER}"
+
+gitclone PROMETHEUS_CONFIG_REPO prometheus_config
+
+for dir in ${PROMETHEUS_CONFIG_DIRS}; do
+    sudo -u "${BASE_USER}" mkdir -p "${dir}"
+done
+
+sudo -u "${BASE_USER}" cp prometheus_config/klipper/.config klipper/
+sudo -u "${BASE_USER}" cp prometheus_config/klipper/config/* printer_data/config/
+sudo -u "${BASE_USER}" cp prometheus_config/nanodlp/* nanodlp/db/
+

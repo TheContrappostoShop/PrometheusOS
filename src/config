@@ -16,7 +16,11 @@ export BASE_RELEASE_IMAGE_NAME="PrometheusOS"
 # Prometheus Settings
 export KLIPPER_REPO_SHIP="https://github.com/TheContrappostoShop/klipper.git"
 
+<<<<<<< HEAD
 # NanoDLP Settings
 export NANODLP_BRANCH="beta"
 
 export MODULES="base(pkupgrade,network,klipper,nanodlp,openocd)"
+=======
+export MODULES="base(pkupgrade,network,klipper,nanodlp,prometheus_config,openocd)"
+>>>>>>> origin/main
