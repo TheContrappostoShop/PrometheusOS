@@ -40,15 +40,15 @@ jobs:
         sudo modprobe loop
         cd repository/src
         sudo bash -x ./build_dist
-        echo "version=$DIST_VERSION" >> $GITHUB_OUTPUT
     - name: Compress output
       id: compress
       run: |
         source repository/src/config
         NOW=$(date +"%Y-%m-%d-%H%M")
-        IMAGE=$NOW-prometheusos-${{ steps.build.outputs.version }}
+        IMAGE=$NOW-prometheusos-$DIST_VERSION
         tar -czvf $IMAGE.tar.gz repository/src/workspace/*.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
+        echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ steps.compress.outputs.image }}
@@ -59,7 +59,7 @@ jobs:
       with:
         artifacts: ${{ steps.compress.outputs.image }}.tar.gz
         draft: true
-        tag: ${{ steps.build.outputs.version }}
+        tag: ${{ steps.compress.outputs.dist_version }}
         skipIfReleaseExists: true
         commit: ${{github.sha}}
 
