@@ -55,7 +55,7 @@ jobs:
         path: ${{ steps.compress.outputs.image }}.tar.gz
     - name: Github Release
       uses: ncipollo/release-action@v1
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_release'
+      if: github.ref == 'refs/heads/main'
       with:
         artifacts: ${{ steps.compress.outputs.image }}.tar.gz
         tag: v${{ steps.compress.outputs.dist_version }}
