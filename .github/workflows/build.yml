@@ -60,5 +60,6 @@ jobs:
         artifacts: ${{ steps.compress.outputs.image }}.tar.gz
         tag: v${{ steps.compress.outputs.dist_version }}
         skipIfReleaseExists: true
+        generateReleaseNotes: true
         commit: ${{github.sha}}
 
