@@ -59,5 +59,5 @@ jobs:
         draft: true
         tag: $DIST_VERSION
         skipIfReleaseExists: true
-        commit: github.sha
+        commit: ${{github.sha}}
 
