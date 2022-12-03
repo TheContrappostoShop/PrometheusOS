@@ -45,17 +45,17 @@ jobs:
         source repository/src/config
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=$NOW-prometheusos-$DIST_VERSION
-        cp repository/src/workspace/*.img $IMAGE.img
+        cp repository/src/workspace/*.zip $IMAGE.zip
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ steps.copy.outputs.image }}
-        path: ${{ steps.copy.outputs.image }}.img
+        path: ${{ steps.copy.outputs.image }}.zip
     - name: Github Release
       uses: ncipollo/release-action@v1
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_release'
       with:
-        artifacts: ${{ steps.copy.outputs.image }}.img
+        artifacts: ${{ steps.copy.outputs.image }}.zip
         draft: true
         tag: $DIST_VERSION
         skipIfReleaseExists: true
