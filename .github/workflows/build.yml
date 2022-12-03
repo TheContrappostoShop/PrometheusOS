@@ -35,20 +35,31 @@ jobs:
         ../../CustomPiOS/src/update-custompios-paths
 
     - name: Build Image
+      id: build
       run: |
         sudo modprobe loop
         cd repository/src
         sudo bash -x ./build_dist
-    - name: Copy output
-      id: copy
+    - name: Compress output
+      id: compress
       run: |
         source repository/src/config
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=$NOW-prometheusos-$DIST_VERSION
-        cp repository/src/workspace/*.img $IMAGE.img
+        tar -czvf $IMAGE.tar.gz repository/src/workspace/*.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
-    # artifact upload will take care of zipping for us
+        echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
     - uses: actions/upload-artifact@v3
       with:
-        name: ${{ steps.copy.outputs.image }}
-        path: ${{ steps.copy.outputs.image }}.img
+        name: ${{ steps.compress.outputs.image }}
+        path: ${{ steps.compress.outputs.image }}.tar.gz
+    - name: Github Release
+      uses: ncipollo/release-action@v1
+      if: github.ref == 'refs/heads/main'
+      with:
+        artifacts: ${{ steps.compress.outputs.image }}.tar.gz
+        tag: v${{ steps.compress.outputs.dist_version }}
+        skipIfReleaseExists: true
+        generateReleaseNotes: true
+        commit: ${{github.sha}}
+
