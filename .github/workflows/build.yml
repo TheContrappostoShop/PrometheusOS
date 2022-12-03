@@ -47,21 +47,15 @@ jobs:
         IMAGE=$NOW-prometheusos-$DIST_VERSION
         cp repository/src/workspace/*.img $IMAGE.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
-    - uses: MCJack123/ghaction-generate-release-hashes@v4
-      with:
-        hash-type: sha256
-        file-name: ${{ steps.copy.outputs.image }}.sha256
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ steps.copy.outputs.image }}
-        path: |
-          ${{ steps.copy.outputs.image }}.img
-          ${{ steps.copy.outputs.image }}.sha256
+        path: ${{ steps.copy.outputs.image }}.img
     - name: Github Release
       uses: ncipollo/release-action@v1
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_release'
       with:
-        artifacts: ${{ steps.copy.outputs.image }}.img,${{ steps.copy.outputs.image }}.sha256
+        artifacts: ${{ steps.copy.outputs.image }}.img
         draft: true
         tag: $DIST_VERSION
         skipIfReleaseExists: true
