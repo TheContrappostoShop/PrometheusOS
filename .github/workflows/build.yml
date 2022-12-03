@@ -39,25 +39,25 @@ jobs:
         sudo modprobe loop
         cd repository/src
         sudo bash -x ./build_dist
-    - name: Copy output
-      id: copy
+    - name: Compress output
+      id: compress
       run: |
         source repository/src/config
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=$NOW-prometheusos-$DIST_VERSION
-        cp repository/src/workspace/*.zip $IMAGE.zip
+        tar -czvf $IMAGE.tar.gz repository/src/workspace/*.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
     - uses: actions/upload-artifact@v3
       with:
-        name: ${{ steps.copy.outputs.image }}
-        path: ${{ steps.copy.outputs.image }}.zip
+        name: ${{ steps.compress.outputs.image }}
+        path: ${{ steps.compress.outputs.image }}.tar.gz
     - name: Github Release
       uses: ncipollo/release-action@v1
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test_release'
       with:
-        artifacts: ${{ steps.copy.outputs.image }}.zip
+        artifacts: ${{ steps.compress.outputs.image }}.tar.gz
         draft: true
-        tag: $DIST_VERSION
+        tag: ${{DIST_VERSION}}
         skipIfReleaseExists: true
         commit: ${{github.sha}}
 
