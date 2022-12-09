@@ -11,5 +11,5 @@ libxkbcommon-dev"
 [ -n "$NANODLP_URL" ] || NANODLP_URL="https://www.nanodlp.com/download/nanodlp.linux.${NANODLP_VERSION}.${NANODLP_BRANCH}.tar.gz"
 [ -n "$NANODLP_DSI_URL" ] || NANODLP_DSI_URL="https://www.nanodlp.com/download/nanodlp-dsi.beta.tar.gz"
 
-[ -n "$NANODLP_FLUTTER_REPO_SHIP" ] || FLUTTER_REPO_SHIP=https://github.com/ardera/flutter-engine-binaries-for-arm.git
-[ -n "$NANODLP_FLUTTER_REPO_DEPTH" ] || FLUTTER_REPO_DEPTH=1
+[ -n "$NANODLP_FLUTTER_REPO_SHIP" ] || NANODLP_FLUTTER_REPO_SHIP=https://github.com/ardera/flutter-engine-binaries-for-arm.git
+[ -n "$NANODLP_FLUTTER_REPO_DEPTH" ] || NANODLP_FLUTTER_REPO_DEPTH=1
