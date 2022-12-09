@@ -73,7 +73,7 @@ sudo -u "${BASE_USER}" echo -n "${NANODLP_DISTRO}">nanodlp/build
 ldconfig
 
 # Install Flutter binaries for DSI screen
-gitclone FLUTTER_REPO flutter_engine
+gitclone NANODLP_FLUTTER_REPO flutter_engine
 pushd "/home/${BASE_USER}/flutter_engine"
 ./install.sh
 popd
