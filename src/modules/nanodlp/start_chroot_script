@@ -77,7 +77,7 @@ gitclone NANODLP_FLUTTER_REPO flutter_engine
 pushd "/home/${BASE_USER}/flutter_engine"
 ./install.sh
 popd
-rm -rf flutter_engine
+#rm -rf flutter_engine
 
 popd
 
