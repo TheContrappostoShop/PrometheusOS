@@ -13,7 +13,7 @@ set -e
 source /common.sh
 
 # Allow variant config to decide Odyssey installation
-if [ $ODYSSEY_INSTALL != "yes" ] exit
+if [ $ODYSSEY_INSTALL == "yes" ] ; then
 
 install_cleanup_trap
 
@@ -25,3 +25,5 @@ LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/
 ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$LATEST_VERSION/odyssey.tar.gz"
 
 sudo -u "${BASE_USER}" wget ${LATEST_VERSION} -O - | tar -C odyssey/
+
+fi
