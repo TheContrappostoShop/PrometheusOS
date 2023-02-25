@@ -1,2 +1,4 @@
-[-n "$ODYSSEY_INSTALL" ] || ODYSSEY_INSTALL="yes"
+#!/bin/bash
+
+[ -n "$ODYSSEY_INSTALL" ] || ODYSSEY_INSTALL="yes"
 
