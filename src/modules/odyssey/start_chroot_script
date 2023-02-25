@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# nanodlp install script
+# Installs Odyssey for use on the Prometheus MSLA Printer
+# Written by Ada Phillips <ragwafire99@gmail.com
+# GPL V3
+########
+
+
+# Source error handling, leave this in place
+set -x
+set -e
+
+source /common.sh
+
+# Allow variant config to decide Odyssey installation
+if [ $ODYSSEY_INSTALL != "yes" ] exit
+
+install_cleanup_trap
+
+pushd "/home/${BASE_USER}"
+sudo -u "${BASE_USER}" mkdir -p odyssey
+
+LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/TheContrappostoShop/Odyssey/releases/latest)
+LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$LATEST_VERSION/odyssey.tar.gz"
+
+sudo -u "${BASE_USER}" wget ${LATEST_VERSION} -O - | tar -C odyssey/

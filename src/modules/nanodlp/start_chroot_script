@@ -12,6 +12,9 @@ set -e
 
 source /common.sh
 
+# Allow variant config to decide NanoDLP installation
+if [ $NANODLP_INSTALL != "yes" ] exit
+
 install_cleanup_trap
 
 check_install_pkgs ${NANODLP_DEPS}

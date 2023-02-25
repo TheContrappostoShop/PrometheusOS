@@ -1,0 +1,69 @@
+on:
+  workflow_call:
+    inputs:
+      variant:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Dependencies
+      run: |
+        sudo apt update
+        sudo apt install coreutils p7zip-full qemu-user-static
+    - name: Checkout CustomPiOS
+      uses: actions/checkout@v3
+      with:
+        repository: 'guysoft/CustomPiOS'
+        path: CustomPiOS
+
+    - name: Checkout Project Repository
+      uses: actions/checkout@v3
+      with:
+        path: repository
+        submodules: true
+
+    - name: Download Raspbian Image
+      run: |
+        cd repository/src/image
+        wget -c --trust-server-names 'https://downloads.raspberrypi.org/raspios_lite_armhf_latest'
+    - name: Update CustomPiOS Paths
+      run: |
+        cd repository/src
+        ../../CustomPiOS/src/update-custompios-paths
+
+    - name: Build Image
+      id: build
+      run: |
+        sudo modprobe loop
+        cd repository/src
+        sudo bash -x ./build_dist ${{ inputs.variant }}
+
+    - name: Compress output
+      id: compress
+      run: |
+        source repository/src/config
+        NOW=$(date +"%Y-%m-%d-%H%M")
+        IMAGE=$NOW-prometheusos-${{ inputs.variant }}-$DIST_VERSION
+        cp repository/src/workspace/*.img $IMAGE.img
+        tar -czvf $IMAGE.tar.gz  $IMAGE.img
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
+        echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: ${{ steps.compress.outputs.image }}
+        path: ${{ steps.compress.outputs.image }}.img
+
+    - name: Github Release
+      uses: ncipollo/release-action@v1
+      if: github.ref == 'refs/heads/main'
+      with:
+        artifacts: ${{ steps.compress.outputs.image }}.tar.gz
+        tag: v${{ steps.compress.outputs.dist_version }}
+        skipIfReleaseExists: true
+        generateReleaseNotes: true
+        commit: ${{github.sha}}
+

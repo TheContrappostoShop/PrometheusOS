@@ -1,0 +1,2 @@
+[-n "ODYSSEY_INSTALL" ] || ODYSSEY_INSTALL="yes"
+
