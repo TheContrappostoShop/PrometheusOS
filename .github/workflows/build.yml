@@ -9,12 +9,22 @@ jobs:
   build_nanodlp:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout Project Repository
+      uses: actions/checkout@v3
+      with:
+        path: repository
+        submodules: true
     - uses: ./.github/workflows/build_variant.yml
       with:
         variant: nanodlp-based
   build_odyssey:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout Project Repository
+      uses: actions/checkout@v3
+      with:
+        path: repository
+        submodules: true
     - uses: ./.github/workflows/build_variant.yml
       with:
         variant: odyssey-based
