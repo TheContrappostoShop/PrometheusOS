@@ -12,7 +12,7 @@ jobs:
     - uses: ./.github/workflows/build_variant.yml
       with:
         variant: nanodlp-based
-  build_nanodlp:
+  build_odyssey:
     runs-on: ubuntu-latest
     steps:
     - uses: ./.github/workflows/build_variant.yml
