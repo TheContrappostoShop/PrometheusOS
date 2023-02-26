@@ -24,6 +24,6 @@ LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/The
 LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
 ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$LATEST_VERSION/odyssey.tar.gz"
 
-sudo -u "${BASE_USER}" wget ${LATEST_VERSION} -O - | tar -C odyssey/
+sudo -u "${BASE_USER}" wget ${ODYSSEY_URL} -O - | tar -C odyssey/
 
 fi
