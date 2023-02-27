@@ -12,9 +12,6 @@ set -e
 
 source /common.sh
 
-# Allow variant config to decide NanoDLP installation
-if [ $NANODLP_INSTALL == "yes" ] ; then 
-
 install_cleanup_trap
 
 check_install_pkgs ${NANODLP_DEPS}
@@ -81,5 +78,3 @@ unpack /filesystem/usr/lib /usr/lib root
 
 systemctl_if_exists enable nanodlp.service
 systemctl_if_exists enable nanodlp-hmi.service
-
-fi

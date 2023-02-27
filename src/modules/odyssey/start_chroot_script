@@ -14,6 +14,8 @@ source /common.sh
 
 install_cleanup_trap
 
+check_install_pkgs ${ODYSSEY_DEPS}
+
 pushd "/home/${BASE_USER}"
 sudo -u "${BASE_USER}" mkdir -p odyssey
 
@@ -34,5 +36,28 @@ echo """
 #!/usr/bin/env bash
 killall odyssey
 """ > printer_data/scripts/odyssey_stop.sh
+
+popd
+
+unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
+
+# Create file watcher service to generate .gcode files from uploaded .sl1 files
+pushd "/etc/systemd/system"
+echo """
+[Unit]
+Description=Create Odyssey gcode files for every SL1 file uploaded
+After=klipper.service
+
+[Service]
+ExecStart=/home/${BASE_USER}/odyssey/sl1_watcher.sh
+RemainAfterExit=true
+Type=simple
+User=${BASE_USER}
+
+[Install]
+WantedBy=multi-user.target
+""" > sl1_watcher.service
+
+systemctl_if_exists enable sl1_watcher.service
 
 popd

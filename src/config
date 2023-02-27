@@ -17,3 +17,6 @@ export BASE_RELEASE_IMAGE_NAME="PrometheusOS"
 export KLIPPER_REPO_SHIP="https://github.com/TheContrappostoShop/klipper.git"
 
 export MODULES="base(pkupgrade,network,klipper,nanodlp,odyssey,prometheus_config,openocd)"
+
+# Prevent known wifi issues
+export NETWORK_DISABLE_PWRSAVE=no
