@@ -12,9 +12,6 @@ set -e
 
 source /common.sh
 
-# Allow variant config to decide Odyssey installation
-if [ $ODYSSEY_INSTALL == "yes" ] ; then
-
 install_cleanup_trap
 
 pushd "/home/${BASE_USER}"
@@ -26,4 +23,16 @@ ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$L
 
 sudo -u "${BASE_USER}" wget ${ODYSSEY_URL} -O - | tar -C odyssey/ -xz
 
-fi
+# Create scripts for starting and stopping odyssey prints (stop is *unsafe*)
+echo """
+#!/usr/bin/env bash
+
+/home/${BASE_USER}/odyssey/odyssey --config /home/${BASE_USER}/odyssey/odyssey.yaml --file ${1} &>> /home/${BASE_USER}/printer_data/logs/odyssey.log &
+""" > printer_data/scripts/odyssey_start.sh
+
+echo """
+#!/usr/bin/env bash
+killall odyssey
+""" > printer_data/scripts/odyssey_stop.sh
+
+popd
