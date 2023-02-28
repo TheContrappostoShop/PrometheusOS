@@ -1,3 +1,3 @@
 #!/bin/bash
 
-[ -n "$ODYSSEY_DEPS" ] || NANODLP_DEPS="inotify-tools"
+[ -n "$ODYSSEY_DEPS" ] || ODYSSEY_DEPS="inotify-tools"

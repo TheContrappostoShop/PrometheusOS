@@ -14,7 +14,7 @@ avrdude gcc-avr binutils-avr avr-libc \
 stm32flash dfu-util libnewlib-arm-none-eabi \
 gcc-arm-none-eabi binutils-arm-none-eabi libusb-1.0-0"
 [ -n "$KLIPPER_USER_GROUPS" ] || KLIPPER_USER_GROUPS=tty,dialout
-[ -n "$KLIPPER_USER_DIRS" ] || KLIPPER_USER_DIRS="${PRINTER_DIR}/config ${PRINTER_DIR}/logs ${PRINTER_DIR}/gcode ${PRINTER_DIR}/comms ${PRINTER_DIR}/systemd"
+[ -n "$KLIPPER_USER_DIRS" ] || KLIPPER_USER_DIRS="${PRINTER_DIR}/config ${PRINTER_DIR}/logs ${PRINTER_DIR}/gcodes ${PRINTER_DIR}/comms ${PRINTER_DIR}/systemd"
 [ -n "$KLIPPER_PYENV_REQ" ] || KLIPPER_PYENV_REQ=scripts/klippy-requirements.txt
 
 [ -n "$KLIPPER_CONFIG" ] || KLIPPER_CONFIG="${PRINTER_DIR}/config/printer.cfg"
