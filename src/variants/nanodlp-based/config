@@ -1,2 +1,1 @@
-BASE_RELEASE_IMAGE_NAME="PrometheusOS-NanoDLP"
-ODYSSEY_INSTALL="no"
+export MODULES="base(pkupgrade,network,klipper,nanodlp,prometheus_config,openocd)"

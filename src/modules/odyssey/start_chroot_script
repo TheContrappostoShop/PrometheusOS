@@ -34,8 +34,8 @@ sudo -u "${BASE_USER}" echo """#!/usr/bin/env bash
 killall odyssey
 """ > printer_data/scripts/odyssey_stop.sh
 
-sudo -u "${BASE_USER}" chmod +x printer_data/scripts/odyssey_start.sh
-sudo -u "${BASE_USER}" chmod +x printer_data/scripts/odyssey_stop.sh
+chmod +x printer_data/scripts/odyssey_start.sh
+chmod +x printer_data/scripts/odyssey_stop.sh
 
 popd
 
