@@ -31,3 +31,7 @@ ExecStart=/rename_script.sh ${BASE_USER} ${USER_RENAME_FILES}
 """ > user_rename.service
 
 popd
+
+unpack /filesystem/root / root
+
+systemctl_if_exists enable user_rename.service
