@@ -1,0 +1,6 @@
+#!/bin/bash
+[ -n "$USER_RENAME_FILES" ] || USER_RENAME_DIRS="/etc/systemd/system/klipper.service\
+/etc/systemd/system/nanodlp.service\
+/etc/systemd/system/nanodlp-hmi.service\
+/etc/systemd/system/moonraker.service\
+/etc/systemd/system/sl1_watcher.service"

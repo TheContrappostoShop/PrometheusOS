@@ -16,29 +16,6 @@ install_cleanup_trap
 
 check_install_pkgs ${OPENOCD_DEPS}
 
-if [ "${OPENOCD_ADD_SERVICE}" == "yes" ]; then
-    pushd "/etc/systemd/system"
-    echo """
-    [Unit]
-    Description=Force the RP2040 to reset its usb connection
-    Before=klipper.service
-
-    [Service]
-    ExecStart=${OPENOCD_SCRIPT_DIR}/openocd_reset_board.sh
-    RemainAfterExit=true
-    Type=oneshot
-    User=${BASE_USER}
-    WorkingDirectory=${OPENOCD_SCRIPT_DIR}
-
-    [Install]
-    WantedBy=multi-user.target
-    """ > board_reset.service
-
-    systemctl_if_exists enable board_reset.service
-
-    popd
-fi
-
 pushd "/home/${BASE_USER}"
 gitclone OPENOCD_REPO openocd
 popd

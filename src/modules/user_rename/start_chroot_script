@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# User Rename Script
+# Rewrites known user-mentions to account for rpi imager username changes
+# Written by Ada Phillips <ragwafire99@gmail.com>
+# GPL V3
+########
+
+
+# Source error handling, leave this in place
+set -x
+set -e
+
+source /common.sh
+
+install_cleanup_trap
+
+pushd "/etc/systemd/system"
+# Rename Service File
+echo """
+[Unit]
+Description=On first boot, ensure all username references match the default user
+ConditionFirstBoot=yes
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/rename_script.sh ${BASE_USER} ${USER_RENAME_FILES}
+""" > user_rename.service
+
+popd

@@ -1,1 +1,1 @@
-export MODULES="base(pkupgrade,network,klipper,moonraker,mainsail,odyssey,prometheus_config,openocd)"
+export MODULES="base(pkupgrade,network,klipper,moonraker,mainsail,odyssey,prometheus_config,openocd,user_rename)"
