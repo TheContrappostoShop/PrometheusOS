@@ -3,4 +3,5 @@
 /etc/systemd/system/nanodlp.service\
 /etc/systemd/system/nanodlp-hmi.service\
 /etc/systemd/system/moonraker.service\
-/etc/systemd/system/sl1_watcher.service"
+/etc/systemd/system/sl1_watcher.service\
+/etc/nginx/sites-available/mainsail"
