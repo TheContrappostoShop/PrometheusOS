@@ -19,7 +19,6 @@ pushd "/etc/systemd/system"
 echo """
 [Unit]
 Description=Finalize user renaming, if applicable
-Before=basic.target
 
 [Install]
 WantedBy=basic.target
