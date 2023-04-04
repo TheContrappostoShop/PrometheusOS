@@ -31,12 +31,8 @@ if [[ $MODULES == *"nanodlp"* ]]; then
     sudo -u "${BASE_USER}" cp prometheus_config/nanodlp/* nanodlp/db/
 fi
 
-# if mainsail and/or odyssey are included in this build, then include the relevant
-# klipper configs at the head of printer.cfg
-if [[ $MODULES == *"mainsail"* ]]; then
-    sudo -u "${BASE_USER}" sed -i '1s;^;[include mainsail.cfg]\n;' printer_data/config/printer.cfg
-fi
-
+# if Odyssey is included in this build, then include the relevant klipper config
+# at the head of printer.cfg
 if [[ $MODULES == *"odyssey"* ]]; then
     sudo -u "${BASE_USER}" sed -i '1s;^;[include odyssey.cfg]\n;' printer_data/config/printer.cfg
 fi
