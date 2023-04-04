@@ -18,10 +18,11 @@ pushd "/etc/systemd/system"
 # Rename Service File
 echo """
 [Unit]
-Description=On first boot, ensure all username references match the default user
+Description=Finalize user renaming, if applicable
+Before=basic.target
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=basic.target
 
 [Service]
 Type=oneshot
