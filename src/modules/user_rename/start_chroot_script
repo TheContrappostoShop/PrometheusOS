@@ -19,7 +19,6 @@ pushd "/etc/systemd/system"
 echo """
 [Unit]
 Description=On first boot, ensure all username references match the default user
-ConditionFirstBoot=yes
 
 [Install]
 WantedBy=multi-user.target

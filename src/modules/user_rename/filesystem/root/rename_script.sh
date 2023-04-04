@@ -16,3 +16,5 @@ for ((i=1;i<=$#-1;i++)) ; do
     sudo sed -i "s/\/home\/${BASE_USER}/\/home\/${NEW_USER}/g" ${arg[i]}
     sudo sed -i "s/${BASE_USER}\s*$/${NEW_USER}/g" ${arg[i]}
 done
+
+systemctl disable user_rename.service
