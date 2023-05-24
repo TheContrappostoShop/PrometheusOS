@@ -6,4 +6,5 @@
 /home/$BASE_USER/printer_data/systemd/moonraker.env \
 /home/$BASE_USER/printer_data/scripts/odyssey_start.sh \
 /etc/systemd/system/sl1_watcher.service \
+/etc/systemd/system/odyssey.service \
 /etc/nginx/sites-available/mainsail"

@@ -25,18 +25,6 @@ ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$L
 
 sudo -u "${BASE_USER}" wget ${ODYSSEY_URL} -O - | tar -C odyssey/ -xz
 
-# Create scripts for starting and stopping odyssey prints (stop is *unsafe*)
-sudo -u "${BASE_USER}" echo """#!/usr/bin/env bash
-/home/${BASE_USER}/odyssey/odyssey --config /home/${BASE_USER}/odyssey/odyssey.yaml --file \"\${1}\" &>> /home/${BASE_USER}/printer_data/logs/odyssey.log &
-""" > printer_data/scripts/odyssey_start.sh
-
-sudo -u "${BASE_USER}" echo """#!/usr/bin/env bash
-killall odyssey
-""" > printer_data/scripts/odyssey_stop.sh
-
-chmod +x printer_data/scripts/odyssey_start.sh
-chmod +x printer_data/scripts/odyssey_stop.sh
-
 popd
 
 unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
@@ -57,6 +45,24 @@ User=${BASE_USER}
 WantedBy=multi-user.target
 """ > sl1_watcher.service
 
+echo """[Unit]
+Description=Run Odyssey Print Control Software
+After=klipper.service
+
+[Service]
+ExecStart=/home/${BASE_USER}/odyssey/odyssey
+RemainAfterExit=true
+WorkingDirectory=/home/${BASE_USER}/odyssey
+Restart=always
+RestartSec=10
+Type=simple
+User=${BASE_USER}
+
+[Install]
+WantedBy=multi-user.target
+""" > odyssey.service
+
 systemctl_if_exists enable sl1_watcher.service
+systemctl_if_exists enable odyssey.service
 
 popd
