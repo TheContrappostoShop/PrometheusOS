@@ -18,10 +18,11 @@ check_install_pkgs ${ODYSSEY_DEPS}
 
 pushd "/home/${BASE_USER}"
 sudo -u "${BASE_USER}" mkdir -p odyssey
-
-LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/TheContrappostoShop/Odyssey/releases/latest)
-LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
-ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$LATEST_VERSION/odyssey.tar.gz"
+if [ "$ODYSSEY_RELEASE" == "latest" ]; then
+    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/latest/download/odyssey.tar.gz"
+else
+    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$ODYSSEY_RELEASE/odyssey.tar.gz"
+fi
 
 sudo -u "${BASE_USER}" wget ${ODYSSEY_URL} -O - | tar -C odyssey/ -xz
 

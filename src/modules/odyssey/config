@@ -1,3 +1,4 @@
 #!/bin/bash
 
 [ -n "$ODYSSEY_DEPS" ] || ODYSSEY_DEPS="inotify-tools"
+[ -n "$ODYSSEY_RELEASE" ] || ODYSSEY_RELEASE="latest"

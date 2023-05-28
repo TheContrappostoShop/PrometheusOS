@@ -4,7 +4,7 @@
 /etc/systemd/system/nanodlp-hmi.service \
 /etc/systemd/system/moonraker.service \
 /home/$BASE_USER/printer_data/systemd/moonraker.env \
-/home/$BASE_USER/printer_data/scripts/odyssey_start.sh \
+/home/$BASE_USER/odyssey/odyssey.yaml \
 /etc/systemd/system/sl1_watcher.service \
 /etc/systemd/system/odyssey.service \
 /etc/nginx/sites-available/mainsail"
