@@ -1,2 +1,2 @@
-export ODYSSEY_RELEASE="BRANCH_api_init
+export ODYSSEY_RELEASE="BRANCH_api_init"
 export MODULES="base(pkupgrade,network,auto-mount-removable,klipper,moonraker,mainsail,odyssey,prometheus_config,openocd,user_rename)"
