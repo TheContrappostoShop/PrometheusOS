@@ -7,4 +7,5 @@
 /home/$BASE_USER/odyssey/odyssey.yaml \
 /etc/systemd/system/sl1_watcher.service \
 /etc/systemd/system/odyssey.service \
-/etc/nginx/sites-available/mainsail"
+/etc/nginx/sites-available/mainsail \
+/home/$BASE_USER/klippy-env/bin/pip"
