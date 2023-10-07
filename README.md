@@ -6,6 +6,10 @@ Custom Raspberry Pi OS distribution for the open source Prometheus MSLA printer.
 This repository provides two versions of the PrometheusOS image:
 
 ### Odyssey-Based
+
+> [!WARNING]  
+> ***The Odyssey-Based image is still a work in progress, and users should exercise extreme caution when using it***
+
 This version of the PrometheusOS uses
 [Odyssey](https://github.com/TheContrappostoShop/Odyssey), the open source resin
 printing software developed by us at the Contrappostop Shop. It takes models
