@@ -1,1 +1,1 @@
-export MODULES="base(pkupgrade,network,klipper,nanodlp,prometheus_config,openocd,user_rename)"
+export MODULES="base(pkgupgrade,network,klipper,nanodlp,prometheus_config,openocd,user_rename)"
