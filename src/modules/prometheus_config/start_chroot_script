@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Prometheus Config install script
 # Installs the configuration files for the Prometheus MSLA Printer
-# Written by Ada Phillips <ragwafire99@gmail.com
+# Written by Ada Phillips <ragwafire99@gmail.com>
 # GPL V3
 ########
 
@@ -25,5 +25,32 @@ done
 
 sudo -u "${BASE_USER}" cp prometheus_config/klipper/.config klipper/
 sudo -u "${BASE_USER}" cp prometheus_config/klipper/config/* printer_data/config/
-sudo -u "${BASE_USER}" cp prometheus_config/nanodlp/* nanodlp/db/
 
+# Only copy nanodlp files if neccessary
+if [[ $MODULES == *"nanodlp"* ]]; then
+    sudo -u "${BASE_USER}" cp prometheus_config/nanodlp/* nanodlp/db/
+fi
+
+# if Odyssey is included in this build, then include the relevant klipper config
+# at the head of printer.cfg
+if [[ $MODULES == *"odyssey"* ]]; then
+    sudo -u "${BASE_USER}" sed -i '1s;^;[include odyssey.cfg]\n;' printer_data/config/printer.cfg
+fi
+
+# Setup screen config
+echo """
+framebuffer_width=2160
+framebuffer_height=3600
+hdmi_force_hotplug=1
+dtparam=i2c_arm=on
+enable_uart=1
+dtoverlay=waveshare35a
+hdmi_group=2
+hdmi_mode=1
+hdmi_mode=87
+hdmi_cvt=2160 3600 24
+hdmi_drive=2
+disable_splash=1
+""" >> /boot/config.txt
+
+sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/config.txt

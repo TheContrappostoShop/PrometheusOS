@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# nanodlp install script
+# Installs Odyssey for use on the Prometheus MSLA Printer
+# Written by Ada Phillips <ragwafire99@gmail.com
+# GPL V3
+########
+
+
+# Source error handling, leave this in place
+set -x
+set -e
+
+source /common.sh
+
+install_cleanup_trap
+
+check_install_pkgs ${ODYSSEY_DEPS}
+
+pushd "/home/${BASE_USER}"
+sudo -u "${BASE_USER}" mkdir -p odyssey
+if [ "$ODYSSEY_RELEASE" == "latest" ]; then
+    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/latest/download/odyssey.tar.gz"
+else
+    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$ODYSSEY_RELEASE/odyssey.tar.gz"
+fi
+
+sudo -u "${BASE_USER}" wget ${ODYSSEY_URL} -O - | sudo -u "${BASE_USER}" tar -C odyssey/ -xz
+
+mv odyssey/odyssey.yaml printer_data/config/
+
+popd
+
+unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
+
+# Create file watcher service to generate .gcode files from uploaded .sl1 files
+pushd "/etc/systemd/system"
+echo """[Unit]
+Description=Create Odyssey gcode files for every SL1 file uploaded
+After=klipper.service
+
+[Service]
+ExecStart=/home/${BASE_USER}/odyssey/sl1_watcher.sh
+RemainAfterExit=true
+Type=simple
+User=${BASE_USER}
+
+[Install]
+WantedBy=multi-user.target
+""" > sl1_watcher.service
+
+echo """[Unit]
+Description=Run Odyssey Print Control Software
+After=klipper.service
+
+[Service]
+ExecStart=/home/${BASE_USER}/odyssey/odyssey --config /home/${BASE_USER}/printer_data/config/odyssey.yaml
+RemainAfterExit=true
+WorkingDirectory=/home/${BASE_USER}/odyssey
+Restart=always
+RestartSec=10
+Type=simple
+User=${BASE_USER}
+
+[Install]
+WantedBy=multi-user.target
+""" > odyssey.service
+
+systemctl_if_exists enable sl1_watcher.service
+systemctl_if_exists enable odyssey.service
+
+popd

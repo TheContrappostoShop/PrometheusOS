@@ -1,0 +1,1 @@
+export MODULES="base(pkgupgrade,network,auto-mount-removable,klipper,moonraker,mainsail,odyssey,prometheus_config,openocd,user_rename)"
