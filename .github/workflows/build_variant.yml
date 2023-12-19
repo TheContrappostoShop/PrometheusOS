@@ -70,4 +70,6 @@ jobs:
         replacesArtifacts: false
         generateReleaseNotes: true
         commit: ${{github.sha}}
+        allowUpdates: true
+        updateOnlyUnreleased: true
 
