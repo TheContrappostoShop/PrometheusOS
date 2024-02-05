@@ -14,7 +14,7 @@ jobs:
         sudo apt update
         sudo apt install coreutils p7zip-full qemu-user-static
     - name: Checkout CustomPiOS
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: 'guysoft/CustomPiOS'
         path: CustomPiOS
@@ -53,7 +53,7 @@ jobs:
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: ${{ steps.compress.outputs.image }}
         path: ${{ steps.compress.outputs.image }}.img
