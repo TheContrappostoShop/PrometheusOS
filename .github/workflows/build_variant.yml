@@ -38,7 +38,7 @@ jobs:
     - name: Download base image
       uses: actions/download-artifact@v4
       with:
-        name: ${{ inputs.image_name }}.xz
+        name: ${{ inputs.image_name }}
         path: repository/src/image
 
     - name: Update CustomPiOS Paths
