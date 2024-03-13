@@ -1,1 +1,2 @@
 export MODULES="base(moonraker,mainsail,odyssey)"
+export BASE_ZIP_IMG="image/*.xz"
