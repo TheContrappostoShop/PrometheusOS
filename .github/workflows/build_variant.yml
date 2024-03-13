@@ -4,6 +4,9 @@ on:
       variant:
         required: true
         type: string
+      image_name:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -27,15 +30,17 @@ jobs:
         ref: '70f1ae537a02195f1ba4f0a51ed381628e575c66'
 
     - name: Checkout Project Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: repository
         submodules: true
 
-    - name: Download Raspbian Image
-      run: |
-        cd repository/src/image
-        wget -c --trust-server-names 'https://downloads.raspberrypi.org/raspios_lite_armhf_latest'
+    - name: Download base image
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.image_name }}
+        path: repository/src/image
+
     - name: Update CustomPiOS Paths
       run: |
         cd repository/src

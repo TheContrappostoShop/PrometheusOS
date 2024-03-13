@@ -6,12 +6,18 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
+  build_base:
+    uses: ./.github/workflows/build_base.yml
   build_nanodlp:
+    needs: build_base
     uses: ./.github/workflows/build_variant.yml
     with:
       variant: nanodlp-based
+      image_name: ${{ needs.build_base.outputs.image_name }}
   build_odyssey:
+    needs: build_base
     uses: ./.github/workflows/build_variant.yml
     with:
       variant: odyssey-based
+      image_name: ${{ needs.build_base.outputs.image_name }}
 
