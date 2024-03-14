@@ -1,1 +1,2 @@
-export MODULES="base(pkgupgrade,network,klipper,nanodlp,prometheus_config,openocd,user_rename)"
+export MODULES="base(nanodlp)"
+export BASE_ZIP_IMG=$(ls -t ${DIST_PATH}/image/*.xz | head -n 1)
