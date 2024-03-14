@@ -1,2 +1,2 @@
 export MODULES="base(nanodlp)"
-export BASE_ZIP_IMG="image/*.xz"
+export BASE_ZIP_IMG=$(ls -t image/*.xz | head -n 1)
