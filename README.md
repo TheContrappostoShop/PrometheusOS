@@ -60,8 +60,7 @@ Odyssey a try once we're a little farther along.
 
 ## Download
 Download the latest release 
-[here](https://github.com/TheContrappostoShop/PrometheusOS/releases) or select 
-a nightly or branch build from the Github Actions tab. 
+[here](https://github.com/TheContrappostoShop/PrometheusOS/releases).
 
 ## Install
 1. Unzip the PrometheusOS image, and 
