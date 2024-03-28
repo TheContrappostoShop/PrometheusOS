@@ -23,13 +23,15 @@ for dir in ${PROMETHEUS_CONFIG_DIRS}; do
     sudo -u "${BASE_USER}" mkdir -p "${dir}"
 done
 
-sudo -u "${BASE_USER}" cp prometheus_config/klipper/.config klipper/
-sudo -u "${BASE_USER}" cp prometheus_config/klipper/config/* printer_data/config/
+sudo -u "${BASE_USER}" mv prometheus_config/klipper/.config klipper/
+sudo -u "${BASE_USER}" mv prometheus_config/klipper/config/* printer_data/config/
 
 # Only copy nanodlp files if neccessary
 if [[ $MODULES == *"nanodlp"* ]]; then
-    sudo -u "${BASE_USER}" cp prometheus_config/nanodlp/* nanodlp/db/
+    sudo -u "${BASE_USER}" mv prometheus_config/nanodlp/* nanodlp/db/
 fi
+
+sudo -u "${BASE_USER}" rm -rf prometheus_config
 
 # if Odyssey is included in this build, then include the relevant klipper config
 # at the head of printer.cfg
