@@ -55,6 +55,7 @@ Requires=klipper.service
 After=klipper.service
 
 [Service]
+ExecStartPre=test -e /home/${BASE_USER}/printer_data/comms/klippy.serial
 ExecStart=/home/${BASE_USER}/odyssey/odyssey --config /home/${BASE_USER}/printer_data/config/odyssey.yaml
 RemainAfterExit=true
 WorkingDirectory=/home/${BASE_USER}/odyssey
