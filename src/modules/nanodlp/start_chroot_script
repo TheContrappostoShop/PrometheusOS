@@ -22,9 +22,11 @@ echo """
 [Unit]
 Description=nanodlp service
 Requires=klipper.service
+After=klipper.service
 
 [Service]
 Type=simple
+ExecStartPre=test -e /home/${BASE_USER}/printer_data/comms/klippy.serial
 ExecStart=/home/${BASE_USER}/nanodlp/nanodlp
 RemainAfterExit=yes
 WorkingDirectory=/home/${BASE_USER}/nanodlp

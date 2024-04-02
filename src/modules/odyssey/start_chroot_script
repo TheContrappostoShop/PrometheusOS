@@ -36,6 +36,7 @@ unpack /filesystem/home/pi /home/"${BASE_USER}" "${BASE_USER}"
 pushd "/etc/systemd/system"
 echo """[Unit]
 Description=Create Odyssey gcode files for every SL1 file uploaded
+Requires=klipper.service
 After=klipper.service
 
 [Service]
@@ -50,9 +51,11 @@ WantedBy=multi-user.target
 
 echo """[Unit]
 Description=Run Odyssey Print Control Software
+Requires=klipper.service
 After=klipper.service
 
 [Service]
+ExecStartPre=test -e /home/${BASE_USER}/printer_data/comms/klippy.serial
 ExecStart=/home/${BASE_USER}/odyssey/odyssey --config /home/${BASE_USER}/printer_data/config/odyssey.yaml
 RemainAfterExit=true
 WorkingDirectory=/home/${BASE_USER}/odyssey
