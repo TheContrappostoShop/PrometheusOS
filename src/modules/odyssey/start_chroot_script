@@ -26,7 +26,8 @@ fi
 
 sudo -u "${BASE_USER}" wget ${ODYSSEY_URL} -O - | sudo -u "${BASE_USER}" tar -C odyssey/ -xz
 
-mv odyssey/odyssey.yaml printer_data/config/
+# Remove example yaml to avoid confusion
+rm -rf odyssey/example.yaml
 
 popd
 
