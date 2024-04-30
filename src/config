@@ -13,6 +13,9 @@ export BASE_IMAGE_ENLARGEROOT=8000
 export BASE_IMAGE_RESIZEROOT=200
 export BASE_RELEASE_IMAGE_NAME="PrometheusOS"
 
+# PkgUpgrade expired mirror fix
+export PKGUPGRADE_DISTUPGRADE_METHOD="full-upgrade --fix-missing"
+
 # Prometheus Settings
 export KLIPPER_REPO_SHIP="https://github.com/TheContrappostoShop/klipper.git"
 
