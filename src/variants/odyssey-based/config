@@ -1,1 +1,2 @@
-export MODULES="base(pkgupgrade,network,auto-mount-removable,klipper,moonraker,mainsail,odyssey,prometheus_config,openocd,user_rename)"
+export MODULES="base(moonraker,mainsail,odyssey)"
+export BASE_ZIP_IMG=$(ls -t ${DIST_PATH}/image/*.xz | head -n 1)

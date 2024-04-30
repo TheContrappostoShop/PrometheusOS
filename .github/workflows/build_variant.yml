@@ -4,6 +4,9 @@ on:
       variant:
         required: true
         type: string
+      image_name:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -26,15 +29,17 @@ jobs:
         path: CustomPiOS
 
     - name: Checkout Project Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: repository
         submodules: true
 
-    - name: Download Raspbian Image
-      run: |
-        cd repository/src/image
-        wget -c --trust-server-names 'https://downloads.raspberrypi.org/raspios_lite_armhf_latest'
+    - name: Download base image
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.image_name }}
+        path: repository/src/image
+
     - name: Update CustomPiOS Paths
       run: |
         cd repository/src
@@ -54,7 +59,7 @@ jobs:
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=$NOW-prometheusos-${{ inputs.variant }}-$DIST_VERSION
         cp repository/src/workspace-${{ inputs.variant }}/*.img $IMAGE.img
-        tar -czvf $IMAGE.tar.gz  $IMAGE.img
+        tar -cJf $IMAGE.img.xz  $IMAGE.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
 
@@ -67,7 +72,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: github.ref == 'refs/heads/main'
       with:
-        artifacts: ${{ steps.compress.outputs.image }}.tar.gz
+        artifacts: ${{ steps.compress.outputs.image }}.img.xz
         tag: v${{ steps.compress.outputs.dist_version }}
         skipIfReleaseExists: true
         omitBodyDuringUpdate: true
