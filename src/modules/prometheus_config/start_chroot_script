@@ -46,18 +46,27 @@ fi
 
 # Setup screen config
 echo """
-framebuffer_width=2160
-framebuffer_height=3600
 hdmi_force_hotplug=1
 dtparam=i2c_arm=on
 enable_uart=1
 dtoverlay=waveshare35a
+disable_splash=1
+""" >> /boot/firmware/config.txt
+
+sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/firmware/config.txt
+
+if [[ $MODULES == *"nanodlp"* ]]; then
+    echo """
+framebuffer_width=2160
+framebuffer_height=3600
 hdmi_group=2
 hdmi_mode=1
 hdmi_mode=87
 hdmi_cvt=2160 3600 24
 hdmi_drive=2
-disable_splash=1
 """ >> /boot/firmware/config.txt
 
-sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/firmware/config.txt
+    sed -i 's/vc4-kms-v3d/vc4-fkms-v3d/g' /boot/firmware/config.txt
+elif [[ $MODULES == *"nanodlp"* ]]; then
+    echo -n "video=HDMI-A-1:2160x3600M@24 video=DSI-1:800x480@30" >> /boot/firmware/cmdline.txt
+fi
