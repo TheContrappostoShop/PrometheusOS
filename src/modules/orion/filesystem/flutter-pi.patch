@@ -25,10 +25,21 @@ index d72ff5d..d1c6a0a 100644
          }
      }
 diff --git a/src/window.c b/src/window.c
-index 687a747..591d6f8 100644
+index 687a747..419a070 100644
 --- a/src/window.c
 +++ b/src/window.c
-@@ -737,7 +737,7 @@ static int select_mode(
+@@ -318,6 +318,10 @@ static int window_init(
+         pixel_ratio = 1.0;
+     } else {
+         pixel_ratio = (10.0 * width) / (width_mm * 38.0);
++        if (pixel_ratio > 1.0) {
++            pixel_ratio = 1.0;
++        }
++
+
+         int horizontal_dpi = (int) (width / (width_mm / 25.4));
+         int vertical_dpi = (int) (height / (height_mm / 25.4));
+@@ -737,7 +741,7 @@ static int select_mode(
 
      // find any connected connector
      for_each_connector_in_drmdev(drmdev, connector) {
