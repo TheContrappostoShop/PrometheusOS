@@ -20,7 +20,7 @@ pushd "/home/${BASE_USER}"
 
 unpack /filesystem /home/"${BASE_USER}" "${BASE_USER}"
 
-gitclone FLUTTERPI_REPO flutter-pi
+gitclone ORION_FLUTTERPI_REPO flutter-pi
 
 git -C flutter-pi apply ../flutter-pi.patch
 

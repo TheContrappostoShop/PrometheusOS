@@ -5,5 +5,5 @@ libdrm-dev libgbm-dev ttf-mscorefonts-installer fontconfig libsystemd-dev libinp
 libudev-dev libxkbcommon-dev"
 [ -n "$ORION_RELEASE" ] || ORION_RELEASE="latest"
 
-[ -n "$FLUTTERPI_REPO_SHIP" ] || FLUTTERPI_REPO_SHIP=https://github.com/ardera/flutter-pi.git
-[ -n "$FLUTTERPI_REPO_BRANCH" ] || FLUTTERPI_REPO_BRANCH=master
+[ -n "$ORION_FLUTTERPI_REPO_SHIP" ] || ORION_FLUTTERPI_REPO_SHIP=https://github.com/ardera/flutter-pi.git
+[ -n "$ORION_FLUTTERPI_REPO_BRANCH" ] || ORION_FLUTTERPI_REPO_BRANCH=master
