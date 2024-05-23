@@ -19,14 +19,15 @@ check_install_pkgs ${ODYSSEY_DEPS}
 pushd "/home/${BASE_USER}"
 sudo -u "${BASE_USER}" mkdir -p odyssey
 if [ "$ODYSSEY_RELEASE" == "latest" ]; then
-    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/latest/download/odyssey.tar.gz"
+    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/latest/download/odyssey_armv7.tar.gz"
 else
-    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$ODYSSEY_RELEASE/odyssey.tar.gz"
+    ODYSSEY_URL="https://github.com/TheContrappostoShop/Odyssey/releases/download/$ODYSSEY_RELEASE/odyssey_armv7.tar.gz"
 fi
 
 sudo -u "${BASE_USER}" wget ${ODYSSEY_URL} -O - | sudo -u "${BASE_USER}" tar -C odyssey/ -xz
 
-mv odyssey/odyssey.yaml printer_data/config/
+# Remove example yaml to avoid confusion
+rm -rf odyssey/example.yaml
 
 popd
 

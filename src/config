@@ -1,5 +1,5 @@
 export DIST_NAME=PrometheusOS
-export DIST_VERSION=1.1.2
+export DIST_VERSION=1.1.3
 
 # rpi-imager json generator settings
 export RPI_IMAGER_NAME="${DIST_NAME}"
@@ -12,6 +12,9 @@ export BASE_ADD_USER="yes" # enable base pi user
 export BASE_IMAGE_ENLARGEROOT=8000
 export BASE_IMAGE_RESIZEROOT=200
 export BASE_RELEASE_IMAGE_NAME="PrometheusOS"
+
+# PkgUpgrade expired mirror fix
+export PKGUPGRADE_DISTUPGRADE_METHOD="full-upgrade --fix-missing"
 
 # Prometheus Settings
 export KLIPPER_REPO_SHIP="https://github.com/TheContrappostoShop/klipper.git"
