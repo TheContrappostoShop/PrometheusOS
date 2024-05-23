@@ -1,0 +1,9 @@
+#!/bin/bash
+
+[ -n "$ORION_DEPS" ] || ORION_DEPS="cmake libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev \
+libdrm-dev libgbm-dev ttf-mscorefonts-installer fontconfig libsystemd-dev libinput-dev \
+libudev-dev libxkbcommon-dev"
+[ -n "$ORION_RELEASE" ] || ORION_RELEASE="latest"
+
+[ -n "$KLIPPER_REPO_SHIP" ] || KLIPPER_REPO_SHIP=https://github.com/Klipper3d/klipper.git
+[ -n "$KLIPPER_REPO_BRANCH" ] || KLIPPER_REPO_BRANCH=master

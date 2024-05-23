@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Installs Orion for use on the Prometheus MSLA Printer
+# Written by Ada Phillips <ragwafire99@gmail.com
+# GPL V3
+########
+
+
+# Source error handling, leave this in place
+set -x
+set -e
+
+source /common.sh
+
+install_cleanup_trap
+
+check_install_pkgs ${ORION_DEPS}
+
+pushd "/home/${BASE_USER}"
+
+
+unpack /filesystem /home/"${BASE_USER}" "${BASE_USER}"
+
+gitclone FLUTTERPI_REPO flutter-pi
+
+patch -ru -d flutter-pi < flutter-pi.patch
+
+sudo -u "${BASE_USER}" mkdir -p "/home/${BASE_USER}/flutter-pi/build"
+pushd "/home/${BASE_USER}/flutter-pi/build"
+
+cmake ..
+make -j`nproc`
+sudo make install
+
+popd
+
+sudo -u "${BASE_USER}" mkdir -p orion
+if [ "$ORION_RELEASE" == "latest" ]; then
+    ORION_URL="https://github.com/TheContrappostoShop/orion/releases/latest/download/orion_armv7.tar.gz"
+else
+    ORION_URL="https://github.com/TheContrappostoShop/Orion/releases/download/$ORION_RELEASE/orion_armv7.tar.gz"
+fi
+
+sudo -u "${BASE_USER}" wget ${ORION_URL} -O - | sudo -u "${BASE_USER}" tar -C orion/ -xz
+
+popd
+
+pushd "/etc/systemd/system"
+
+echo """[Unit]
+Description=Run Orion Print Control UI
+
+[Service]
+ExecStart=flutter-pi /home/${BASE_USER}/orion
+RemainAfterExit=true
+WorkingDirectory=/home/${BASE_USER}/orion
+Restart=always
+RestartSec=10
+Type=simple
+User=${BASE_USER}
+
+[Install]
+WantedBy=multi-user.target
+""" > orion.service
+
+systemctl_if_exists enable orion.service
+
+popd
