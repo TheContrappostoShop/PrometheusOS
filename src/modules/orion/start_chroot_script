@@ -50,7 +50,7 @@ echo """[Unit]
 Description=Run Orion Print Control UI
 
 [Service]
-ExecStart=flutter-pi /home/${BASE_USER}/orion
+ExecStart=flutter-pi --release /home/${BASE_USER}/orion
 RemainAfterExit=true
 WorkingDirectory=/home/${BASE_USER}/orion
 Restart=always
