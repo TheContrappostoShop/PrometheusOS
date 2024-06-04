@@ -1,0 +1,50 @@
+diff --git a/src/flutter-pi.c b/src/flutter-pi.c
+index 31b8c1c..d0579db 100644
+--- a/src/flutter-pi.c
++++ b/src/flutter-pi.c
+@@ -2135,7 +2135,7 @@ static struct drmdev *find_drmdev(struct libseat *libseat) {
+         }
+
+         for_each_connector_in_drmdev(drmdev, connector) {
+-            if (connector->variable_state.connection_state == kConnected_DrmConnectionState) {
++            if ((connector->variable_state.connection_state == kConnected_DrmConnectionState) && (connector->type == kDSI_DrmConnectorType)){
+                 goto found_connected_connector;
+             }
+         }
+diff --git a/src/modesetting.c b/src/modesetting.c
+index d72ff5d..d1c6a0a 100644
+--- a/src/modesetting.c
++++ b/src/modesetting.c
+@@ -2376,7 +2376,7 @@ int kms_req_builder_set_connector(struct kms_req_builder *builder, uint32_t conn
+     assert(DRM_ID_IS_VALID(connector_id));
+
+     for_each_connector_in_drmdev(builder->drmdev, conn) {
+-        if (conn->id == connector_id) {
++        if ((conn->id == connector_id) && (conn->type == kDSI_DrmConnectorType)) {
+             break;
+         }
+     }
+diff --git a/src/window.c b/src/window.c
+index 687a747..419a070 100644
+--- a/src/window.c
++++ b/src/window.c
+@@ -318,6 +318,10 @@ static int window_init(
+         pixel_ratio = 1.0;
+     } else {
+         pixel_ratio = (10.0 * width) / (width_mm * 38.0);
++        if (pixel_ratio > 1.0) {
++            pixel_ratio = 1.0;
++        }
++
+
+         int horizontal_dpi = (int) (width / (width_mm / 25.4));
+         int vertical_dpi = (int) (height / (height_mm / 25.4));
+@@ -737,7 +741,7 @@ static int select_mode(
+
+     // find any connected connector
+     for_each_connector_in_drmdev(drmdev, connector) {
+-        if (connector->variable_state.connection_state == kConnected_DrmConnectionState) {
++        if ((connector->variable_state.connection_state == kConnected_DrmConnectionState) && (connector->type == kDSI_DrmConnectorType)) {
+             break;
+         }
+     }

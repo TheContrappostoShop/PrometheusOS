@@ -1,0 +1,10 @@
+#!/bin/bash
+
+[ -n "$ORION_DEPS" ] || ORION_DEPS="cmake libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev \
+libdrm-dev libgbm-dev ttf-mscorefonts-installer fontconfig libsystemd-dev libinput-dev \
+libudev-dev libxkbcommon-dev"
+[ -n "$ORION_RELEASE" ] || ORION_RELEASE="latest"
+
+[ -n "$ORION_FLUTTERPI_REPO_SHIP" ] || ORION_FLUTTERPI_REPO_SHIP=https://github.com/ardera/flutter-pi.git
+[ -n "$ORION_FLUTTERPI_REPO_BRANCH" ] || ORION_FLUTTERPI_REPO_BRANCH=master
+[ -n "$ORION_FLUTTERPI_REPO_COMMIT" ] || ORION_FLUTTERPI_REPO_COMMIT=c1dd76432a42d9b743080a4e9dc8c24e9386c8d9

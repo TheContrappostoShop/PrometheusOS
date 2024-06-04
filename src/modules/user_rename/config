@@ -8,5 +8,6 @@
 /home/$BASE_USER/printer_data/config/odyssey.yaml \
 /etc/systemd/system/sl1_watcher.service \
 /etc/systemd/system/odyssey.service \
+/etc/systemd/system/orion.service \
 /etc/nginx/sites-available/mainsail \
 /home/$BASE_USER/klippy-env/bin/pip"
