@@ -1,7 +1,7 @@
 #!/bin/bash
 
-[ -n "$NANODLP_VERSION" ] || NANODLP_VERSION="arm.rpi"
-[ -n "$NANODLP_BRANCH" ] || NANODLP_BRANCH="stable"
+[ -n "$NANODLP_VERSION" ] || NANODLP_VERSION="8647"
+[ -n "$NANODLP_BUILD" ] || NANODLP_BUILD="arm.rpi"
 
 [ -n "$NANODLP_DISTRO" ] || NANODLP_DISTRO="generic"
 
@@ -11,5 +11,5 @@ ttf-mscorefonts-installer fontconfig libsystemd-dev libinput-dev libudev-dev \
 libxkbcommon-dev libraspberrypi0 libraspberrypi-dev libraspberrypi-doc \
 libraspberrypi-bin"
 
-[ -n "$NANODLP_URL" ] || NANODLP_URL="https://www.nanodlp.com/download/nanodlp.linux.${NANODLP_VERSION}.${NANODLP_BRANCH}.tar.gz"
+[ -n "$NANODLP_URL" ] || NANODLP_URL="https://www.nanodlp.com/download/nanodlp/nanodlp.linux.${NANODLP_BUILD}.${NANODLP_VERSION}.tar.gz"
 [ -n "$NANODLP_DSI_URL" ] || NANODLP_DSI_URL="https://www.nanodlp.com/download/nanodlp-dsi.beta.tar.gz"
