@@ -25,6 +25,7 @@ done
 
 sudo -u "${BASE_USER}" mv prometheus_config/klipper/.config klipper/
 sudo -u "${BASE_USER}" mv prometheus_config/klipper/config/* printer_data/config/
+sudo -u "${BASE_USER}" mv prometheus_config/scripts/* printer_data/scripts/
 
 # Only copy nanodlp files if neccessary
 if [[ $MODULES == *"nanodlp"* ]]; then
