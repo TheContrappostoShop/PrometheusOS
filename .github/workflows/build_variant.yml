@@ -54,7 +54,7 @@ jobs:
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=$NOW-prometheusos-${{ inputs.variant }}-$DIST_VERSION
         cp repository/src/workspace-${{ inputs.variant }}/*.img $IMAGE.img
-        tar -czvf $IMAGE.tar.gz  $IMAGE.img
+        tar -cJvf $IMAGE.tar.xz  $IMAGE.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
 
@@ -65,10 +65,9 @@ jobs:
 
     - name: Github Release
       uses: ncipollo/release-action@v1
-      if: github.ref == 'refs/heads/main'
       with:
         artifacts: ${{ steps.compress.outputs.image }}.tar.gz
-        tag: v${{ steps.compress.outputs.dist_version }}
+        tag: TEST_v${{ steps.compress.outputs.dist_version }}
         skipIfReleaseExists: true
         omitBodyDuringUpdate: true
         draft: true
