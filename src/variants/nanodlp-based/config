@@ -1,1 +1,2 @@
 export MODULES="base(pkgupgrade,network,klipper,nanodlp,prometheus_config,openocd,user_rename)"
+export PROMETHEUS_CONFIG_REPO_BRANCH="nanodlp_update"

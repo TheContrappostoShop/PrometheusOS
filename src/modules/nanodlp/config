@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -n "$NANODLP_VERSION" ] || NANODLP_VERSION="8647"
+[ -n "$NANODLP_VERSION" ] || NANODLP_VERSION="8883"
 [ -n "$NANODLP_BUILD" ] || NANODLP_BUILD="arm.rpi"
 
 [ -n "$NANODLP_DISTRO" ] || NANODLP_DISTRO="generic"
