@@ -65,9 +65,10 @@ jobs:
 
     - name: Github Release
       uses: ncipollo/release-action@v1
+      if: github.ref == 'refs/heads/main'
       with:
         artifacts: ${{ steps.compress.outputs.image }}.tar.xz
-        tag: TEST_v${{ steps.compress.outputs.dist_version }}
+        tag: v${{ steps.compress.outputs.dist_version }}
         skipIfReleaseExists: true
         omitBodyDuringUpdate: true
         draft: true
