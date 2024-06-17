@@ -47,28 +47,33 @@ jobs:
         cd repository/src
         sudo bash -x ./build_dist ${{ inputs.variant }}
 
-    - name: Compress output
-      id: compress
+    - name: Move output
+      id: move
       run: |
         source repository/src/config
         NOW=$(date +"%Y-%m-%d-%H%M")
         IMAGE=$NOW-prometheusos-${{ inputs.variant }}-$DIST_VERSION
         cp repository/src/workspace-${{ inputs.variant }}/*.img $IMAGE.img
-        tar -cJvf $IMAGE.tar.xz  $IMAGE.img
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         echo "dist_version=$DIST_VERSION" >> $GITHUB_OUTPUT
 
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ steps.compress.outputs.image }}
-        path: ${{ steps.compress.outputs.image }}.img
+        name: ${{ steps.move.outputs.image }}
+        path: ${{ steps.move.outputs.image }}.img
+
+    - name: compress for release
+      id: compress
+      if: github.ref == 'refs/heads/main'
+      run: |
+        tar -cJvf ${{ steps.move.outputs.image }}.tar.xz  $${{ steps.move.outputs.image }}.img
 
     - name: Github Release
       uses: ncipollo/release-action@v1
       if: github.ref == 'refs/heads/main'
       with:
-        artifacts: ${{ steps.compress.outputs.image }}.tar.xz
-        tag: v${{ steps.compress.outputs.dist_version }}
+        artifacts: ${{ steps.move.outputs.image }}.tar.xz
+        tag: v${{ steps.move.outputs.dist_version }}
         skipIfReleaseExists: true
         omitBodyDuringUpdate: true
         draft: true
