@@ -5,11 +5,11 @@ on:
         required: true
         type: string
       odyssey_release:
-        required: true
+        required: false
         type: string
         default: BRANCH_paused_moves
       orion_release:
-        required: true
+        required: false
         type: string
         default: latest
 
