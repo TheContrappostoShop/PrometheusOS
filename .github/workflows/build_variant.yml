@@ -4,6 +4,14 @@ on:
       variant:
         required: true
         type: string
+      odyssey_release:
+        required: true
+        type: string
+        default: BRANCH_paused_moves
+      orion_release:
+        required: true
+        type: string
+        default: latest
 
 jobs:
   build:
@@ -45,7 +53,7 @@ jobs:
       run: |
         sudo modprobe loop
         cd repository/src
-        sudo bash -x ./build_dist ${{ inputs.variant }}
+        sudo bash -x ORION_RELEASE=${{ inputs.orion_release }} ODYSSEY_RELEASE=${{ inputs.odyssey_release }} ./build_dist ${{ inputs.variant }}
 
     - name: Move output
       id: move
