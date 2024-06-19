@@ -59,7 +59,7 @@ sudo -u "${BASE_USER}" mkdir -p nanodlp
 sudo -u "${BASE_USER}" mkdir -p nanodlp-hmi
 
 # Pi package has nested folder and renamed binary, for whatever reason
-if [ $NANODLP_VERSION == "arm.rpi" ] ; then
+if [ $NANODLP_BUILD == "arm.rpi" ] ; then
     sudo -u "${BASE_USER}" wget ${NANODLP_URL} -O - | tar -C nanodlp/ -xz printer --strip-components=1
     sudo -u "${BASE_USER}" mv nanodlp/printer nanodlp/nanodlp
 else
