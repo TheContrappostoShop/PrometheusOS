@@ -15,6 +15,8 @@ source /common.sh
 install_cleanup_trap
 
 
+check_install_pkgs ${PROMETHEUS_CONFIG_DEPS}
+
 pushd "/home/${BASE_USER}"
 
 gitclone PROMETHEUS_CONFIG_REPO prometheus_config
