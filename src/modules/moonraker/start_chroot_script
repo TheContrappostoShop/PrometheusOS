@@ -41,7 +41,7 @@ gitclone MOONRAKER_REPO moonraker
 
 ## Step 3: grep PKGLIST from install-moonraker.sh for dependencies
 echo_green "Generating packages file ..."
-grep "PKGLIST=" "${MN_BUILD_INSTALL_SH}" >> "${MN_BUILD_PACKAGE_FILE}"
+grep "PACKAGES=" "${MN_BUILD_INSTALL_SH}" >> "${MN_BUILD_PACKAGE_FILE}"
 
 ## Step 4: Rename PKGLIST to Module usable Var
 echo_green "Rename variable PKGLIST to MOONRAKER_DEPS ..."
