@@ -7,7 +7,7 @@ on:
       odyssey_release:
         required: false
         type: string
-        default: BRANCH_paused_moves
+        default: latest
       orion_release:
         required: false
         type: string
