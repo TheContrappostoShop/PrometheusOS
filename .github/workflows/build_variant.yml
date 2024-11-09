@@ -27,11 +27,14 @@ jobs:
       run: |
         sudo apt update
         sudo apt install coreutils p7zip-full qemu-user-static
+
     - name: Checkout CustomPiOS
       uses: actions/checkout@v4
       with:
         repository: 'guysoft/CustomPiOS'
         path: CustomPiOS
+    - name: Install CustomPiOS Dependencies
+      run: pip3 install -r CustomPiOS/src/requirements.txt
 
     - name: Checkout Project Repository
       uses: actions/checkout@v3
